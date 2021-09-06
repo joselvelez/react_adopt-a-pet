@@ -3,10 +3,6 @@ const server = jsonServer.create();
 const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 
-// delay a bit
-setTimeout(() => server.use(), 1000);
-console.log('delayed 1000 ms...');
-
 // set the default middlewares (logger, static, cors, and no-cache)
 server.use(middlewares);
 
