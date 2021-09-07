@@ -1,11 +1,14 @@
 import { React, useState, useEffect } from 'react';
+import Modal from 'react-modal';
 import ReactDOM from 'react-dom';
 import './index.css';
+import NewPetModal from './NewPetModal';
 import Pet from './Pet';
 
 const App = () => {
   const [pets, setPets] = useState([])
   const [ isLoading, setLoading ] = useState(false);
+  const [ isNewPetOpen, setNewPetOpen ] = useState(false);
 
   useEffect(() => {
     async function getData() {
@@ -37,14 +40,21 @@ const App = () => {
                 </li>
               ))}
             </ul>
-            <button>Add a Pet</button>
+            <button onClick={() => setNewPetOpen(true)}>Add a Pet</button>
           </>
         )}
+
+        {isNewPetOpen && (
+          <NewPetModal
+            onCancel={() => setNewPetOpen(false)}
+          />
+        )}
+
     </main>
   );
 };
+const el = document.querySelector('#root');
+Modal.setAppElement(el);  // https://reactcommunity.org/react-modal/accessibility/
+ReactDOM.render(<App />, el);
 
-ReactDOM.render(
-    <App />,
-  document.getElementById('root')
-);
+// React Modal Docs: http://reactcommunity.org/react-modal/
