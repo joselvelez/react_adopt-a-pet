@@ -25,6 +25,19 @@ const App = () => {
     getData();
   }, [])
 
+  const addPet = async ({ name, kind, photo }) => {
+    setPets([
+      ...pets,
+      {
+        id: Math.random(),
+        name,
+        kind,
+        photo
+      }
+    ]);
+    setNewPetOpen(false);
+  };
+
   return (
     <main>
       <h1>Adopt-a-Pet</h1>
@@ -47,6 +60,7 @@ const App = () => {
         {isNewPetOpen && (
           <NewPetModal
             onCancel={() => setNewPetOpen(false)}
+            onSave={addPet}
           />
         )}
 
