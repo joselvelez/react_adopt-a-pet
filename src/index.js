@@ -27,6 +27,7 @@ const App = () => {
 
   const addPet = async (pet) => {
     const newPet = await createPet(pet);
+    console.log(newPet);
     setPets([
       ...pets,
       newPet
