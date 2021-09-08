@@ -25,11 +25,11 @@ const App = () => {
     getData();
   }, [])
 
-  const addPet = async ({ name, kind, photo, testing }) => {
-    createPet({ name, kind, photo });
+  const addPet = async (pet) => {
+    const newPet = await createPet(pet);
     setPets([
       ...pets,
-
+      newPet
     ]);
     setNewPetOpen(false);
   };

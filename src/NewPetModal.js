@@ -5,7 +5,6 @@ function NewPetModal({ onCancel, onSave }) {
     const [ name, setName ] = useState('');
     const [ kind, setKind ] = useState('');
     const [ photo, setPhoto ] = useState(null)
-    const [test, setTest] = useState('testing');
     const photoInput = useRef();
 
     const setPetPhoto = () => {

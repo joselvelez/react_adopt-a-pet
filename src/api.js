@@ -5,7 +5,8 @@ const handleErrors = async (res) => {
         const errResponse = res.json();
         return await errResponse;
     }
-    return await res.json();
+    console.log(res.json());
+    return res.json();
 }
 
 export const listPets = async () => {
@@ -22,7 +23,7 @@ export const createPet = async (pet) => {
         body: JSON.stringify(pet)
     });
 
-    handleErrors(res);
+    await handleErrors(res);
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/API/fetch
