@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import NewPetModal from './NewPetModal';
 import Pet from './Pet';
+import { listPets, createPet } from './api';
 
 const App = () => {
   const [pets, setPets] = useState([])
@@ -14,9 +15,8 @@ const App = () => {
     async function getData() {
       setLoading(true);
       try {
-        const res = await fetch('http://localhost:3001/pets');
-        const pets = await res.json();
-        setPets(pets);
+        const response = await listPets();
+        setPets(response);
         setLoading(false);
       } catch (e) {
         setLoading(false);
@@ -25,15 +25,11 @@ const App = () => {
     getData();
   }, [])
 
-  const addPet = async ({ name, kind, photo }) => {
+  const addPet = async ({ name, kind, photo, testing }) => {
+    createPet({ name, kind, photo });
     setPets([
       ...pets,
-      {
-        id: Math.random(),
-        name,
-        kind,
-        photo
-      }
+
     ]);
     setNewPetOpen(false);
   };
