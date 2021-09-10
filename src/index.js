@@ -19,6 +19,7 @@ const App = () => {
         setPets(response);
         setLoading(false);
       } catch (e) {
+        console.log(e);
         setLoading(false);
       }
     }
@@ -27,7 +28,6 @@ const App = () => {
 
   const addPet = async (pet) => {
     const newPet = await createPet(pet);
-    console.log(newPet);
     setPets([
       ...pets,
       newPet

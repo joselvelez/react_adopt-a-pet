@@ -1,29 +1,28 @@
-const uri = 'http://localhost:3001/pets'
+const apiURL = 'http://localhost:3001/pets'
 
 const handleErrors = async (res) => {
-    if (!res.ok) {
-        const errResponse = res.json();
-        return await errResponse;
+    try {
+        const response = await res;
+        return response;
+    } catch(e) {
+        console.log(error => {console.log(error);});
     }
-    return await res;
 }
 
 export const listPets = async () => {
-    const res = await fetch(uri);
+    const res = await fetch(apiURL);
     return await res.json();
 }
 
 export const createPet = async (pet) => {
-    const res = await fetch(uri, {
+    const response = await fetch(apiURL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(pet)
     });
-
-    return await res;
-    // await handleErrors(res);
+    return await handleErrors(response.json());
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/API/fetch
