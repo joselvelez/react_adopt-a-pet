@@ -3,13 +3,6 @@ const server = jsonServer.create();
 const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 
-// delay a bit
-// server.use(() => {
-//     setTimeout(() => {
-//         console.log('delay by 500 ms...');
-//     }, 500)
-// })
-
 // set the default middlewares (logger, static, cors, and no-cache)
 server.use(middlewares);
 
@@ -17,27 +10,32 @@ server.use(middlewares);
 server.use(jsonServer.bodyParser)
 
 server.use((req, res, next) => {
-    if (['POST', 'PATCH', 'PUT'].includes(req.method)
-    && req.url.match(/pets/)
-    ) {
-        // validate the pet name and kind
-            let errors = null;
+    // add in a delay to test for loading behavior
+    setTimeout(() => {
+        console.log('delaying...');
 
-        if (!req.body.name) {
-            errors = errors || {};
-            errors.name = "Name can't be blank";
-        }
-        if (req.body.kind !== 'cat' && req.body.kind !== 'dog') {
-            errors = errors || {};
-            errors.kind = "Kind must be 'cat' or 'dog'";
-        }
+        if (['POST', 'PATCH', 'PUT'].includes(req.method)
+        && req.url.match(/pets/)
+        ) {
+            // validate the pet name and kind
+                let errors = null;
 
-        if (errors) {
-            return res.status(400).json(errors);
+            if (!req.body.name) {
+                errors = errors || {};
+                errors.name = "Name can't be blank";
+            }
+            if (req.body.kind !== 'cat' && req.body.kind !== 'dog') {
+                errors = errors || {};
+                errors.kind = "Kind must be 'cat' or 'dog'";
+            }
+
+            if (errors) {
+                return res.status(400).json(errors);
+            }
         }
-    }
-    // continue to JSON server router
-    next();
+        // continue to JSON server router
+        next();
+    }, 1250)
 });
 
 // Use default router
