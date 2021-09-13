@@ -6,6 +6,7 @@ function NewPetModal({ onCancel, onSave }) {
     const [ kind, setKind ] = useState('');
     const [ photo, setPhoto ] = useState(null);
     const [errors, setErrors ] = useState(null);
+    const [ saving, setSaving ] = useState(false);
     const photoInput = useRef();
 
     const setPetPhoto = () => {
@@ -24,6 +25,7 @@ function NewPetModal({ onCancel, onSave }) {
     const submit = event => {
         event.preventDefault();
         // save
+        setSaving(true);
         onSave({
             name,
             kind,
@@ -31,7 +33,8 @@ function NewPetModal({ onCancel, onSave }) {
         }).catch(error => {
             console.log(`ERROR @ submit(): ${error.name}, ${error.kind}`);
             setErrors(error);
-        })
+            setSaving(false);
+        });
     }
 
     return (
@@ -76,10 +79,10 @@ function NewPetModal({ onCancel, onSave }) {
                     <option value="cat">Cat</option>
                 </select>
 
-                <button type="button" onClick={onCancel}>
+                <button disabled={saving} type="button" onClick={onCancel}>
                     Cancel
                 </button>
-                <button type="submit">Save</button>
+                <button disabled={saving} type="submit">Save</button>
             </form>
         </Modal>
     )
