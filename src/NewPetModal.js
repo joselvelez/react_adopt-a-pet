@@ -4,7 +4,8 @@ import Modal from 'react-modal';
 function NewPetModal({ onCancel, onSave }) {
     const [ name, setName ] = useState('');
     const [ kind, setKind ] = useState('');
-    const [ photo, setPhoto ] = useState(null)
+    const [ photo, setPhoto ] = useState(null);
+    const [errors, setErrors ] = useState(null);
     const photoInput = useRef();
 
     const setPetPhoto = () => {
@@ -27,7 +28,10 @@ function NewPetModal({ onCancel, onSave }) {
             name,
             kind,
             photo
-        });
+        }).catch(error => {
+            console.log(`ERROR @ submit(): ${error.name}, ${error.kind}`);
+            setErrors(error);
+        })
     }
 
     return (
@@ -44,6 +48,10 @@ function NewPetModal({ onCancel, onSave }) {
                     onChange={setPetPhoto}
                 />
 
+                {errors && errors.name && (
+                    <div className="error">{errors.name}</div>
+                )}
+
                 <label htmlFor="name">Name</label>
                 <input 
                     type="text"
@@ -51,6 +59,10 @@ function NewPetModal({ onCancel, onSave }) {
                     value={name}
                     onChange={e => setName(e.target.value)}
                 />
+
+                {errors && errors.kind && (
+                    <div className="error">{errors.kind}</div>
+                )}
 
                 <label htmlFor="kind">Kind</label>
                 <select

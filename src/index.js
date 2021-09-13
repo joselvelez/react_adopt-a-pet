@@ -19,7 +19,7 @@ const App = () => {
         setPets(response);
         setLoading(false);
       } catch (e) {
-        console.log(e);
+        console.log(`ERROR @ useEffect for setPets() & setLoading: ${e}`);
         setLoading(false);
       }
     }
@@ -28,10 +28,7 @@ const App = () => {
 
   const addPet = async (pet) => {
     const newPet = await createPet(pet);
-    setPets([
-      ...pets,
-      newPet
-    ]);
+    setPets([...pets, newPet]);
     setNewPetOpen(false);
   };
 
