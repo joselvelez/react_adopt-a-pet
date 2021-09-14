@@ -25,4 +25,15 @@ export const createPet = async (pet) => {
     return handleErrors(response);
 }
 
+export const updatePet = async (pet) => {
+    const response = await fetch(`${apiURL}/${pet.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(pet)
+    });
+    return handleErrors(response)
+}
+
 // https://developer.mozilla.org/en-US/docs/Web/API/fetch

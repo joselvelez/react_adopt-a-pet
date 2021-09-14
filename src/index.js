@@ -3,13 +3,15 @@ import Modal from 'react-modal';
 import ReactDOM from 'react-dom';
 import './index.css';
 import NewPetModal from './NewPetModal';
+import EditPetModal from './EditPetModal';
 import Pet from './Pet';
-import { listPets, createPet } from './api';
+import { listPets, createPet, updatePet } from './api';
 
 const App = () => {
-  const [pets, setPets] = useState([])
+  const [ pets, setPets] = useState([])
   const [ isLoading, setLoading ] = useState(false);
   const [ isNewPetOpen, setNewPetOpen ] = useState(false);
+  const [ currentPet, setCurrentPet ] = useState(null);
 
   useEffect(() => {
     async function getData() {
@@ -32,6 +34,22 @@ const App = () => {
     setNewPetOpen(false);
   };
 
+  const savePet = async (pet) => {
+    return updatePet(pet).then(updatedPet => {
+      setPets(pets =>
+        pets.map(pet => {
+          pet.id === updatedPet.id ? {
+            ...pet,
+            name: updatedPet.name,
+            kind: updatedPet.kind,
+            photo: updatedPet.photo
+          } :
+          pet
+        })
+      )
+      });
+  };
+
   return (
     <main>
       <h1>Adopt-a-Pet</h1>
@@ -43,7 +61,7 @@ const App = () => {
             <ul>
               {pets.map(pet => (
                 <li key={pet.id}>
-                  <Pet pet={pet} />
+                  <Pet pet={pet} onEdit={() => setCurrentPet(pet)} />
                 </li>
               ))}
             </ul>
@@ -55,6 +73,14 @@ const App = () => {
           <NewPetModal
             onCancel={() => setNewPetOpen(false)}
             onSave={addPet}
+          />
+        )}
+
+        {currentPet && (
+          <EditPetModal
+            pet={currentPet}
+            onCancel={() => setCurrentPet(null)}
+            onSave={savePet}
           />
         )}
 

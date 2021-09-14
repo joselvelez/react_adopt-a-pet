@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react'
 import Modal from 'react-modal';
 
-function NewPetModal({ onCancel, onSave }) {
-    const [ name, setName ] = useState('');
-    const [ kind, setKind ] = useState('');
-    const [ photo, setPhoto ] = useState(null);
+function EditPetModal({ onCancel, onSave, pet }) {
+    const [ name, setName ] = useState(pet.name);
+    const [ kind, setKind ] = useState(pet.kind);
+    const [ photo, setPhoto ] = useState(pet.photo);
     const [ errors, setErrors ] = useState(null);
     const [ saving, setSaving ] = useState(false);
     const photoInput = useRef();
@@ -15,7 +15,6 @@ function NewPetModal({ onCancel, onSave }) {
         photoInput.current.files[0];
 
         if (file) {
-            // https://developer.mozilla.org/en-US/docs/Web/API/FileReader
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = () => setPhoto(reader.result);
@@ -24,7 +23,6 @@ function NewPetModal({ onCancel, onSave }) {
 
     const submit = event => {
         event.preventDefault();
-        // save
         setSaving(true);
         onSave({
             name,
@@ -39,7 +37,7 @@ function NewPetModal({ onCancel, onSave }) {
 
     return (
         <Modal isOpen={true} onRequestClose={onCancel}>
-            <h2>New Pet Registration</h2>
+            <h2>Edit Pet Registration</h2>
             <form className="pet-form" onSubmit={submit}>
                 {photo && <img alt="the pet" src={photo} />}
 
@@ -88,4 +86,4 @@ function NewPetModal({ onCancel, onSave }) {
     )
 }
 
-export default NewPetModal;
+export default EditPetModal;
