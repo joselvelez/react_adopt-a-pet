@@ -25,6 +25,7 @@ function EditPetModal({ onCancel, onSave, pet }) {
         event.preventDefault();
         setSaving(true);
         onSave({
+            ...pet,
             name,
             kind,
             photo

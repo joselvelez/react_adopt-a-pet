@@ -36,18 +36,11 @@ const App = () => {
 
   const savePet = async (pet) => {
     return updatePet(pet).then(updatedPet => {
-      setPets(pets =>
-        pets.map(pet => {
-          pet.id === updatedPet.id ? {
-            ...pet,
-            name: updatedPet.name,
-            kind: updatedPet.kind,
-            photo: updatedPet.photo
-          } :
-          pet
-        })
-      )
-      });
+      setPets(pets => 
+        pets.map(pet => pet.id === updatedPet.id ? updatedPet : pet)
+        );
+      setCurrentPet(null);
+    });
   };
 
   return (

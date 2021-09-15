@@ -2,8 +2,8 @@
   font-family: 'Noah', Avenir, sans-serif;
 }
 body {
-  background: #faf7ff;
-  color: #250068;
+  background: #333232;
+  color: #c2bbce;
 }
 h1 {
   text-align: center;
@@ -20,14 +20,14 @@ main > button {
   padding: 9px 22px;
   font-size: 22px;
   font-weight: bold;
-  background: #5100e5;
+  background: #c2bbce;
   color: #fff;
   border: none;
   transition: 0.15s all;
 }
 main > button:focus {
   outline: none;
-  box-shadow: 0 0 10px #5100e5;
+  box-shadow: 0 0 10px #c2bbce;
 }
 main > button:active {
   transform: scale(0.9);
@@ -49,7 +49,7 @@ li {
 }
 .pet-name {
   font-size: 24px;
-  color: #250068;
+  color: #c2bbce;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -74,14 +74,14 @@ li {
   align-items: center;
   justify-content: center;
   line-height: 1em;
-  box-shadow: 0 0 2px #673ab7;
+  box-shadow: 0 0 2px #c2bbce;
   cursor: pointer;
   padding-left: 10px;
   padding-top: 4px;
 }
 .pet .adopt-btn:focus {
   outline: none;
-  box-shadow: 0 0 7px #673ab7;
+  box-shadow: 0 0 7px #c2bbce;
 }
 .pet .adopt-btn:active {
   transform: scale(0.9);
