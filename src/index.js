@@ -5,7 +5,7 @@ import './index.css';
 import NewPetModal from './NewPetModal';
 import EditPetModal from './EditPetModal';
 import Pet from './Pet';
-import { listPets, createPet, updatePet } from './api';
+import { listPets, createPet, updatePet, deletePet } from './api';
 
 const App = () => {
   const [ pets, setPets] = useState([])
@@ -43,6 +43,18 @@ const App = () => {
     });
   };
 
+  const removePet = async (petToRemove) => {
+    console.log(`removing pet ${petToRemove.id} with name ${petToRemove.name}`);
+    const confirmAdoption = window.confirm(`Are you SURE you want to adopt ${petToRemove.name}?`);
+
+    if (confirmAdoption) {
+      deletePet(petToRemove)
+        .then(() => {
+          setPets(pet => pets.filter(pet => pet.id !== petToRemove.id))
+        });
+    };
+  };
+
   return (
     <main>
       <h1>Adopt-a-Pet</h1>
@@ -54,7 +66,7 @@ const App = () => {
             <ul>
               {pets.map(pet => (
                 <li key={pet.id}>
-                  <Pet pet={pet} onEdit={() => setCurrentPet(pet)} />
+                  <Pet pet={pet} onEdit={() => setCurrentPet(pet)} onRemove={() => removePet(pet)} />
                 </li>
               ))}
             </ul>

@@ -33,7 +33,14 @@ export const updatePet = async (pet) => {
         },
         body: JSON.stringify(pet)
     });
-    return handleErrors(response)
+    return handleErrors(response);
+}
+
+export const deletePet = async (pet) => {
+    const response = await fetch(`${apiURL}/${pet.id}`, {
+        method: 'DELETE'
+    });
+    return handleErrors(response);
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/API/fetch
